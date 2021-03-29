@@ -7,7 +7,7 @@ export default {
     port: process.env.NUXT_ENV_SERVER_PORT || 3000
   },
   head: {
-    title: 'veloboersewetzikon.ch',
+    title: 'Nuxt.js WP frontend boilerplate',
     htmlAttrs: {
       lang: 'de-CH',
     },
