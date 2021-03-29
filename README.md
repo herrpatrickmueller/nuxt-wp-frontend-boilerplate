@@ -1,4 +1,4 @@
-# vuejs WordPress Theme Boilerplate
+# Nuxt.js Headless WordPress Frontend Boilerplate
 
 This is a boilerplate Nuxt.js frontent app for a headless WordPress integration. 
 
