@@ -28,7 +28,7 @@ export default {
       <div class="person__portrait">
         <img class="person__portrait-img" v-bind:src="portraitSrc" v-bind:alt="portraitAlt" />
       </div>
-      <h2 class="person__name">{{ data.person.fields.name }}</h2>
+      <h2 class="person__name">{{ data.person.post_title }}</h2>
       <h3 class="person__role">{{ data.person.fields.role }}</h3>
     </article>
   </nuxt-link>

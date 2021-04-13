@@ -16,18 +16,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import ContentBlocks from '@/components/content/ContentBlocks.vue';
 
 export default {
-  components: {
-    ContentBlocks
-  },
   async asyncData({ app, params, store, error }) {
     const metaResponse = await app.$api.getMeta();
     const menusResponse = await app.$api.getMenus();
     const person = await app.$api.getPerson(params.slug);
-
-    console.log(person)
 
     if (!person.data || person.data.length === 0) {
       error({
