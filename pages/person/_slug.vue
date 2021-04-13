@@ -1,13 +1,15 @@
 <template>
-  <div class="blog-page">
-    <template v-if="postContent">
-      <div class="blog-page__wrapper" v-bind:key="postContent.id">
-        <div class="blog-page__content-column">
-          <h1 class="blog-page__title">{{ postTitle }}</h1>
-          <div class="blog-page__content" v-html="postContent.content.rendered"></div>
-          <!-- <content-blocks v-bind:blocks="postContent.fields.page_content"></content-blocks> -->
+  <div class="person-page">
+    <template>
+      <article class="person-page__wrapper" v-bind:key="page">
+        <div class="person-page__content-column">
+          <h1 class="person-page__title">{{ pageTitle }}</h1>
+          <div class="person-page__portrait">
+            <img class="person-page__portrait-img" v-bind:src="portraitSrc" v-bind:alt="portraitAlt" />
+          </div>
+          <div class="person_page__bio" v-html="page.fields.biography"></div>
         </div>
-      </div>
+      </article>
     </template>
   </div>
 </template>
@@ -23,16 +25,18 @@ export default {
   async asyncData({ app, params, store, error }) {
     const metaResponse = await app.$api.getMeta();
     const menusResponse = await app.$api.getMenus();
-    const post = await app.$api.getPost(params.slug);
+    const person = await app.$api.getPerson(params.slug);
 
-    if (!post.data || post.data.length === 0) {
+    console.log(person)
+
+    if (!person.data || person.data.length === 0) {
       error({
         statusCode: 404,
         message: 'Page not found'
       });
     }
 
-    store.dispatch('post/current', post.data);
+    store.dispatch('person/current', person.data);
     store.dispatch('common/meta', metaResponse.data);
     store.dispatch('common/menus', menusResponse.data);
   },
@@ -53,47 +57,54 @@ export default {
   },
   computed: {
     ...mapGetters({
-      post: 'post/current',
+      page: 'person/current',
       meta: 'common/meta',
     }),
     siteName() {
       return this.meta ? this.meta.blogname : '';
     },
-    postTitle() {
-      if (!this.post) return;
-      return this.post.title 
-        ? this.post.title.rendered
-        : this.post.post_title;
+    pageTitle() {
+      if (!this.page) return;
+      return this.page.title 
+        ? this.page.title.rendered
+        : this.page.post_title;
     },
     metaTitle() {
-      if (this.post) {
-        return this.post.fields.meta_title 
-          ? `${this.post.fields.meta_title} – ${this.siteName}`
-          : `${this.postTitle} – ${this.siteName}`;
+      if (this.page) {
+        return this.page.fields.meta_title 
+          ? `${this.page.fields.meta_title} – ${this.siteName}`
+          : `${this.pageTitle} – ${this.siteName}`;
       } else {
         return this.siteName;
       }
     },
     metaDescription() {
-      if (this.post && this.post.fields.meta_description) {
-        return this.post.fields.meta_description;
+      if (this.page && this.page.fields.meta_description) {
+        return this.page.fields.meta_description;
       } else {
         return this.meta ? this.meta.blogdescription : '';
       }
     },
     linkCanonical() {
-      return this.post
-         ? `${process.env.NUXT_ENV_CMS_BASE_URL}/${this.post.slug}`
+      return this.page
+         ? `${process.env.NUXT_ENV_CMS_BASE_URL}/${this.page.slug}`
          : '';
     },
     ogImage() {
-      return this.post.fields.meta_image 
-        ? this.post.fields.meta_image.sizes.large 
+      return this.page.fields.meta_image 
+        ? this.page.fields.meta_image.sizes.large 
         : '/og-img.png';
     },
-    postContent() {
-      return this.post;
+    portraitSrc() {
+      return this.page.fields.portrait
+        ? this.page.fields.portrait.sizes.large
+        : null;
     },
+    portraitAlt() {
+        return this.page.fields.portrait
+        ? this.page.fields.portrait.alt
+        : this.page.fields.name;
+    }
   },
   transition: {
     name: 'page-transition',
@@ -103,15 +114,15 @@ export default {
 </script>
 
 <style lang="scss">
-.blog-page {
+.person-page {
   @include container;
 }
 
-.blog-page__wrapper {
+.person-page__wrapper {
   @include grid();
 }
 
-.blog-page__content-column {
+.person-page__content-column {
   @include grid__cell(5);
   @include grid__cell--push-left(1);
   max-width: 68rem;
@@ -126,12 +137,20 @@ export default {
   }
 }
 
-.blog-page__title {
+.person-page__title {
   font-size: 5rem;
   line-height: 1.2;
 
   @include breakpoint('phone') {
     font-size: 4rem;
   }
+}
+
+.person-page__portrait {
+  margin-top: 6rem;
+}
+
+.person-page__portrait-img {
+  max-width: 100%;
 }
 </style>

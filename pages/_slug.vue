@@ -5,7 +5,7 @@
         <div class="content-page__content-column">
           <h1 class="content-page__title">{{ pageTitle }}</h1>
           <!-- <div class="content-page__content" v-html="pageContent.content.rendered"></div> -->
-          <content-blocks v-bind:blocks="pageContent.acf.page_content"></content-blocks>
+          <content-blocks v-bind:blocks="pageContent.fields.page_content"></content-blocks>
         </div>
       </div>
     </template>
@@ -70,16 +70,16 @@ export default {
     },
     metaTitle() {
       if (this.page) {
-        return this.page.acf.meta_title 
-          ? `${this.page.acf.meta_title} – ${this.siteName}`
+        return this.page.fields.meta_title 
+          ? `${this.page.fields.meta_title} – ${this.siteName}`
           : `${this.pageTitle} – ${this.siteName}`;
       } else {
         return this.siteName;
       }
     },
     metaDescription() {
-      if (this.page && this.page.acf.meta_description) {
-        return this.page.acf.meta_description;
+      if (this.page && this.page.fields.meta_description) {
+        return this.page.fields.meta_description;
       } else {
         return this.meta ? this.meta.blogdescription : '';
       }
@@ -90,8 +90,8 @@ export default {
          : '';
     },
     ogImage() {
-      return this.page.acf.meta_image 
-        ? this.page.acf.meta_image.sizes.large 
+      return this.page.fields.meta_image 
+        ? this.page.fields.meta_image.sizes.large 
         : '/og-img.png';
     },
     pageContent() {

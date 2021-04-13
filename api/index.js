@@ -37,4 +37,9 @@ export default $axios => ({
   postContactForm(data) {
     return $axios.post(`contact-forms`, data);
   },
+
+  getPerson(slug) {
+    if (!slug) return false;
+    return $axios.get(`people?slug=${slug}`)
+  },
 });
