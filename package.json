@@ -2,6 +2,9 @@
   "name": "nuxt-wp-frontend-boilerplate",
   "version": "1.0.0",
   "private": true,
+  "prettier": {
+    "singleQuote": true
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
