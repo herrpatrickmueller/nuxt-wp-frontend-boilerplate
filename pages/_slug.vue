@@ -38,6 +38,11 @@ export default {
     store.dispatch('page/current', page.data);
     store.dispatch('common/meta', metaResponse.data);
     store.dispatch('common/menus', menusResponse.data);
+
+    // get page data directly, via store page transition wont work
+    return {
+      page: Array.isArray(page.data) ? page.data[0] : page.data
+    }
   },
   head() {
     return {
@@ -56,7 +61,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      page: 'page/current',
       meta: 'common/meta',
     }),
     siteName() {
