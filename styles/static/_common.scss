@@ -67,3 +67,10 @@ blockquote {
     line-height: 1.5;
   }
 }
+
+* {
+  @include breakpoint('reduced-motion') {
+    animation: none !important;
+    transition: none !important;
+  }
+}
