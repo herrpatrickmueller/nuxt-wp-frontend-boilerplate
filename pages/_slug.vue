@@ -90,7 +90,7 @@ export default {
     },
     linkCanonical() {
       return this.page
-         ? `${process.env.NUXT_ENV_CMS_BASE_URL}/${this.page.slug}`
+         ? `${process.env.NUXT_ENV_BASE_URL}/${this.page.slug}`
          : '';
     },
     ogImage() {
