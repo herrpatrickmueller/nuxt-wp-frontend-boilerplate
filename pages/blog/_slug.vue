@@ -83,7 +83,7 @@ export default {
     },
     linkCanonical() {
       return this.post
-         ? `${process.env.NUXT_ENV_CMS_BASE_URL}/${this.post.slug}`
+         ? `${process.env.NUXT_ENV_BASE_URL}/${this.post.slug}`
          : '';
     },
     ogImage() {
