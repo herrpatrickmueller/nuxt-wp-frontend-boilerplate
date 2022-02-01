@@ -16,6 +16,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import path from '@/util/path';
 
 export default {
   async asyncData({ app, params, store, error }) {
@@ -80,8 +81,8 @@ export default {
       }
     },
     linkCanonical() {
-      return this.page
-         ? `${process.env.NUXT_ENV_BASE_URL}/${this.page.slug}`
+      return this.page && this.page.slug
+         ? path.join(process.env.NUXT_ENV_BASE_URL, this.page.slug)
          : '';
     },
     ogImage() {

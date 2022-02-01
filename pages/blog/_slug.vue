@@ -14,6 +14,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import path from '@/util/path';
 import ContentBlocks from '@/components/content/ContentBlocks.vue';
 
 export default {
@@ -82,8 +83,8 @@ export default {
       }
     },
     linkCanonical() {
-      return this.post
-         ? `${process.env.NUXT_ENV_BASE_URL}/${this.post.slug}`
+      return this.post && this.post.slug
+         ? path.join(process.env.NUXT_ENV_BASE_URL, this.post.slug)
          : '';
     },
     ogImage() {
