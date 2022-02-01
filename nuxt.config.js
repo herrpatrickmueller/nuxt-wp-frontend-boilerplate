@@ -1,4 +1,4 @@
-import axios from 'axios';
+import generateSitemap from './util/sitemap'
 
 export default {
   ssr: true,
@@ -42,33 +42,10 @@ export default {
     '@nuxtjs/style-resources',
     '@nuxtjs/sitemap',
   ],
-
   axios: {
     baseURL: process.env.NUXT_ENV_CMS_BASE_URL
   },
   build: {
   },
   sitemap: () => generateSitemap()
-}
-
-// Sitemap generation
-async function generateSitemap() {
-  const sitemapResponse = await axios.get(`${process.env.NUXT_ENV_CMS_BASE_URL}sitemap`);
-  const sitemapItems = sitemapResponse.data;
-
-  let sitemaps = [];
-  Object.entries(sitemapItems).forEach(object => {
-    const type = object[0];
-    sitemaps.push({
-      path: `/sitemap-${type}.xml`,
-      exclude: [ '/' ],
-      routes: sitemapItems[type],
-    });
-  });
-
-  return {
-    hostname: process.env.NUXT_ENV_BASE_URL,
-    gzip: true,
-    sitemaps: sitemaps
-  }
 }
