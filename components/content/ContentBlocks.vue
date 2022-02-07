@@ -34,8 +34,8 @@ export default {
 <template>
   <div class="content-blocks" v-if="blocks">
     <component
-      v-for="(block, i) in blocks"
-      v-bind:key="i"
+      v-for="(block, index) in blocks"
+      v-bind:key="`${block.acf_fc_layout}-${index}`"
       v-bind:data="block"
       v-bind:is="getComponentName(block.acf_fc_layout)"
     />
