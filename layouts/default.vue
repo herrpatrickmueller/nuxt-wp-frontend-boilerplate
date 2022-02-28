@@ -34,7 +34,6 @@ export default {
   flex-direction: column;
   justify-content: stretch;
   min-height: 100vh;
-  overflow: hidden;
 }
 
 .page__start,
