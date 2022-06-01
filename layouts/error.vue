@@ -1,8 +1,17 @@
 <script>
 export default {
   name: 'NuxtError',
-  components: {
-
+  props: ['error'],
+  computed: {
+    errorMessage() {
+      switch (this.error.statusCode) {
+        case 404:
+          return 'Seite nicht gefunden.';
+      
+        default:
+          return 'Es ist ein Fehler aufgetreten.';
+      }
+    }
   },
   layout: 'default'
 }
@@ -10,8 +19,8 @@ export default {
 
 <template>
   <div class="error">
-    <h1 class="error__title">404</h1>
-    <p class="error__msg">Seite nicht gefunden.</p>
+    <h1 class="error__title">{{ error.statusCode }}</h1>
+    <p class="error__msg">{{ errorMessage }}</p>
   </div>
 </template>
 
