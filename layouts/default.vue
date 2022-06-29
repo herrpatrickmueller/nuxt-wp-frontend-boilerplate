@@ -1,3 +1,15 @@
+<script>
+import PageHeader from '@/components/layout/PageHeader.vue';
+import PageFooter from '@/components/layout/PageFooter.vue';
+
+export default {
+  components: {
+    PageHeader,
+    PageFooter,
+  },
+};
+</script>
+
 <template>
   <div class="page__wrap">
     <div class="page__start">
@@ -12,19 +24,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import PageHeader from '@/components/layout/PageHeader.vue';
-import PageFooter from '@/components/layout/PageFooter.vue';
-
-export default {
-  components: {
-    PageHeader,
-    PageFooter,
-  },
-};
-</script>
-
 
 <style lang="scss">
 @import '~@/styles/static/main';

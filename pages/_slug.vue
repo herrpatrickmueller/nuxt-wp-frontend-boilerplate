@@ -1,17 +1,3 @@
-<template>
-  <div class="content-page">
-    <template>
-      <div class="content-page__wrapper" v-bind:key="pageContent.id">
-        <div class="content-page__content-column">
-          <h1 class="content-page__title">{{ pageTitle }}</h1>
-          <!-- <div class="content-page__content" v-html="pageContent.content.rendered"></div> -->
-          <content-blocks v-bind:blocks="pageContent.fields.page_content"></content-blocks>
-        </div>
-      </div>
-    </template>
-  </div>
-</template>
-
 <script>
 import { mapGetters } from 'vuex';
 import path from '@/util/path';
@@ -110,28 +96,17 @@ export default {
 };
 </script>
 
+<template>
+  <div class="content-page" v-bind:key="pageContent.id">
+    <h1 class="content-page__title">{{ pageTitle }}</h1>
+    <!-- <div class="content-page__content" v-html="pageContent.content.rendered"></div> -->
+    <content-blocks v-bind:blocks="pageContent.fields.page_content"></content-blocks>
+  </div>
+</template>
+
 <style lang="scss">
 .content-page {
   @include container;
-}
-
-.content-page__wrapper {
-  @include grid();
-}
-
-.content-page__content-column {
-  @include grid__cell(5);
-  @include grid__cell--push-left(1);
-  max-width: 68rem;
-
-  @include breakpoint('tablet') {
-    @include grid__cell(11);
-  }
-
-  @include breakpoint('phone') {
-    @include grid__cell(12);
-    @include grid__cell--push-left(0);
-  }
 }
 
 .content-page__title {
